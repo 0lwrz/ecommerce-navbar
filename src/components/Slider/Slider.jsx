@@ -21,7 +21,7 @@ export default function Slider() {
       onSlideChange={() => console.log('slide change')}
     >
       <SwiperSlide>
-        <img src='public/Pic/swiper-img-1.jpeg' className='img-swiper'/>
+        <img src='public/Pic/swiper-img-1.jpg' className='img-swiper'/>
         <div className="container">
         <div class="centered d-flex flex-column justify-content-center align-items-center gap-3">
           <span className='fashion-sale text-center'>Fashion Sale</span>
@@ -31,7 +31,7 @@ export default function Slider() {
         </div>
       </SwiperSlide>
       <SwiperSlide>
-      <img src='public/Pic/swiper-img-2.jpeg' className='img-swiper'/>
+      <img src='public/Pic/swiper-img-2.jpg' className='img-swiper'/>
       <div className="container">
         <div class="centered-2 d-flex flex-column justify-content-center align-items-center gap-3">
           <span className='fashion-sale text-center'>Fashion Sale</span>
