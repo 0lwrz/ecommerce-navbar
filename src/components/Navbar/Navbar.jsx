@@ -8,7 +8,7 @@ export default function Navbar() {
       <nav className="Navbar p-4 navbar-expand-lg">
         <div className="container d-flex">
           <div className="logo">
-            <img src="/public/capital.shop.logo.jpg"  alt="logo" />
+            <img src="capital.shop.logo.jpg"  alt="logo" />
           </div>
           <ul className="d-flex gap-4 p-3">
             <li>
