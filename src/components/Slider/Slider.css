@@ -1,0 +1,46 @@
+.img-swiper {
+  width: 100%;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+}
+.centered-2 {
+    position: absolute;
+    top: 50%;
+    right: 0.5%;
+    transform: translate(-50%, -50%);
+  }
+.fashion-sale {
+  color: #ff2020;
+  font-family: "Clicker Script", cursive;
+  font-size: 50px;
+  line-height: 1.2;
+  font-weight: 400;
+  margin-bottom: 1px;
+  display: block;
+}
+.swiper-button-next:after, .swiper-rtl .swiper-button-prev:after {
+    color: black;
+}
+.swiper-button-prev:after, .swiper-rtl .swiper-button-next:after {
+    color: black;
+}
+.minimal-style{
+    font-size: 55px;
+    font-weight: 500;
+    color: #292621;
+    line-height: 1.3;
+    margin-bottom: 2px;
+    font-family: "Jost", sans-serif;
+}
+.centered p{
+    color: #74706B;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 31px;
+    padding: 0 50px;
+    font-family: "Jost", sans-serif;
+}

@@ -1,0 +1,22 @@
+.Navbar li {
+    font-weight: 600;
+}
+.search svg{
+    width: 20px;
+    height: 20px;
+}
+.cart svg{
+    width: 20px;
+    height: 20px;
+}
+.profile svg{
+    width: 25px;
+    height: 25px;
+}
+.icon{
+    gap:30px
+}
+.navbar-hover:hover{
+    color: #FF2020;
+    transition: 0.5s;
+}
