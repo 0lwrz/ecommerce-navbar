@@ -9,8 +9,6 @@ export default function Root() {
   return (
     <>
     <Navbar />
-    <Hero/>
-    <Slider/>
     <Outlet/>
     </>
   )

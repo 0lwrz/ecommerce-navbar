@@ -1,0 +1,23 @@
+.trend{
+    color: #292621;
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 2px;
+    font-family: "Jost", sans-serif;
+}
+.cate{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+}
+.home-h2{
+    color: #292621;
+    font-size: 14px;
+    margin-left: 15px;
+    font-weight: 400;
+    font-family: "Jost", sans-serif;
+}
+.home-img{
+    width: 100px;
+}

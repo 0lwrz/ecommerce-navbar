@@ -1,0 +1,90 @@
+.login-form-area {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 15px 0;
+}
+.login-form-area .login-form {
+    background: #fff;
+    padding: 55px 60px 50px 50px;
+    box-shadow: 0px 10px 30px 0px rgba(13,12,13,0.2);
+    width: 700px;
+    margin: auto;
+}
+.login-form-area .login-form .login-heading {
+    text-align: center;
+}
+.login-form-area .login-form .login-heading span {
+    color: #140C40;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: block;
+    text-transform: capitalize;
+}
+p{
+    font-family: "Jost", sans-serif;
+    color: #301A22;
+    font-size: 16px;
+    line-height: 30px;
+    margin-bottom: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.login-form-area .login-form .input-box {
+    padding-top: 35px;
+    padding-bottom: 75px;
+}
+.login-form-area .login-form .input-box .single-input-fields label {
+    display: block;
+    font-size: 17px;
+    margin-bottom: 6px;
+    color: #140C40;
+    text-transform: capitalize;
+    font-weight: 500;
+    text-align: left;
+}
+.login-form-area .login-form .input-box .single-input-fields input {
+    border: 1px solid #C9C9C9;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+    padding: 0 25px;
+    color: #000;
+}
+.login-check a {
+    color: #FF2020;
+    font-size: 14px;
+    font-weight: 400;
+}
+.login-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.login-form-area .login-form .login-footer p a {
+    color: #FF2020;
+}
+@media screen and (max-width:503px){
+    .login-footer{
+        flex-wrap: wrap;
+    }
+    .login-form-area .login-form{
+        width: 100%;
+    }
+}
+

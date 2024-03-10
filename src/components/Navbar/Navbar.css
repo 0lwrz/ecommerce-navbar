@@ -1,3 +1,9 @@
+.nav-link.active{
+    border-bottom: 2px #FF2020;
+}
+.Navbar{
+    padding: 10px 0px 0px 0px;
+}
 .Navbar li {
     font-weight: 600;
 }
@@ -19,4 +25,10 @@
 .navbar-hover:hover{
     color: #FF2020;
     transition: 0.5s;
+}
+nav{
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: #fff;
 }
