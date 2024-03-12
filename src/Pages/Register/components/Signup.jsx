@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./Signup.css";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Flip } from "react-toastify";
 export default function Signup() {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     userName: "",
     email: "",
@@ -13,6 +14,7 @@ export default function Signup() {
     image: "",
   });
   const [errors, setErrors] = useState([]);
+  const [loader , setLoader] = useState(false);
   const handelChange = (e) => {
     const { name, value } = e.target;
     setUser({
@@ -44,28 +46,62 @@ export default function Signup() {
         validationErrors[err.path] = err.message;
         setErrors(validationErrors);
       });
+      setLoader(false);
       return false;
     }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoader(true);
     if (await validateData()) {
       const formData = new FormData();
       formData.append("userName", user.userName);
       formData.append("email", user.email);
       formData.append("password", user.password);
       formData.append("image", user.image);
-      const { data } = axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/signup`,
-        formData
-      );
-      setUser({
-        userName: "",
-        email: "",
-        password: "",
-        image: "",
-      });
-      console.log(data);
+      try{
+        const { data } = await axios.post(
+          `${import.meta.env.VITE_API_URL}/auth/signup`,
+          formData
+        );
+        setUser({
+          userName: "",
+          email: "",
+          password: "",
+          image: "",
+        });
+        if (data.message == 'success'){
+          toast.success('success', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Flip,
+            });
+            navigate('/');
+        }
+      } catch(error){
+        if(error.response.status === 409){
+          toast.error(error.response.data.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Flip,
+            });
+        }
+       
+      }finally{
+        setLoader(false);
+      }
     }
   };
   return (
@@ -130,8 +166,8 @@ export default function Signup() {
                       Already have an account?
                       <NavLink to="/sign-in"> Login</NavLink> here
                     </p>
-                    <button class="submit-btn3" type="submit">
-                      Sign Up
+                    <button className="submit-btn3" type="submit" disabled={loader?'disabled':null}>
+                      {!loader?'Sign up': '...wait'}
                     </button>
                   </div>
                 </form>

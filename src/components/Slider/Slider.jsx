@@ -23,7 +23,7 @@ export default function Slider() {
       <SwiperSlide>
         <img src='swiper-img-1.jpg' alt='swiper-img-1' className='img-swiper'/>
         <div className="container">
-        <div class="centered d-flex flex-column justify-content-center align-items-center gap-3">
+        <div className="centered d-flex flex-column justify-content-center align-items-center gap-3">
           <span className='fashion-sale text-center'>Fashion Sale</span>
           <h1 className='minimal-style text-center'>Minimal Menz Style</h1>
           <p className='text-center'>Consectetur adipisicing elit. Laborum fuga incidunt<br/> laboriosam voluptas iure, delectus dignissimos facilis<br/> neque nulla earum.</p>
@@ -33,7 +33,7 @@ export default function Slider() {
       <SwiperSlide>
       <img src='swiper-img-2.jpg' alt='swiper-img-1' className='img-swiper'/>
       <div className="container">
-        <div class="centered-2 d-flex flex-column justify-content-center align-items-center gap-3">
+        <div className="centered-2 d-flex flex-column justify-content-center align-items-center gap-3">
           <span className='fashion-sale text-center'>Fashion Sale</span>
           <h1 className='minimal-style text-center'>Minimal Menz Style</h1>
           <p className='text-center'>Consectetur adipisicing elit. Laborum fuga incidunt<br/> laboriosam voluptas iure, delectus dignissimos facilis<br/> neque nulla earum.</p>
