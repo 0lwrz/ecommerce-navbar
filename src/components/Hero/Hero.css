@@ -1,21 +1,51 @@
-.hero{
-    background-color: #16161a;
-    padding: 11px 0px;
- 
+.hero {
+  background-color: #16161a;
+  padding: 5px;
+}
+.text {
+  margin: 0;
+}
+.hero p {
+  color: #fff;
+  font-family: "Jost", sans-serif;
+}
+.shop {
+  color: #cebd9c;
+  border-bottom: #cebd9c;
+  font-weight: 600;
+  border-bottom: 2px double #cebd9c;
+}
+@media screen and (max-width:990px) {
+  .hero .text{
+    flex-direction: row;
+  }
+}
+@media screen and (max-width:767px) {
+  .hero p{
+    font-size: 15px;
+  }
+  .shop a{
+    font-size: 15px;
+  }
+}
+@media screen and (max-width:520px) {
+  .hero p{
+    font-size: 14px;
+  }
+  .shop a{
+    font-size: 14px;
+  }
+}
+@media screen and (max-width:496px) {
+  .hero p{
+    display: none;
+  }
+  .shop {
+    font-size: 20px;
+  }
+  .hero .text{
+    flex-direction: column;
+  }
 
 }
-.text{
-    margin: 0;
-}
-.hero p{
- color: #fff;
- font-family: "Jost", sans-serif;
 
-
-}
- .shop{
-    color:#CEBD9C;
-    border-bottom: #CEBD9C;
-    font-weight: 600;
-    border-bottom: 2px double #CEBD9C ;
-}

@@ -1,5 +1,5 @@
 .nav-link.active{
-    border-bottom: 2px #FF2020;
+    border-bottom: 1px #FF2020 solid;
 }
 .Navbar{
     padding: 10px 0px 0px 0px;
@@ -12,17 +12,18 @@
     height: 20px;
 }
 .cart svg{
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 40px;
 }
 .profile svg{
-    width: 25px;
-    height: 25px;
+    width: 40px;
+    height: 30px ;
 }
+
 .icon{
     gap:30px
 }
-.navbar-hover:hover{
+.text-hover:hover{
     color: #FF2020;
     transition: 0.5s;
 }
@@ -31,4 +32,51 @@ nav{
     top: 0;
     z-index: 999;
     background-color: #fff;
+}
+li{
+    list-style-type: none;
+}
+.bg-light {
+    --bs-bg-opacity: 1;
+    background-color: #fff !important;
+}
+.navbar-expand-lg .navbar-nav {
+    gap: 500px;
+}
+.cart{
+    gap: 7px;
+}
+.sign-color{
+    background-color: #FF2020;
+}
+.hover-red:hover{
+    background-color: #FF2020;
+    
+}
+
+@media screen and (max-width:1396px){
+    .navbar-expand-lg .navbar-nav {
+        gap: 100px;
+    }
+
+}
+@media screen and (max-width:991px){
+.d-flex{
+    flex-direction: column;
+}
+.d-flex .gap-2{
+    flex-direction: row;
+    font-size: 13px;
+}
+.navbar-expand-lg .navbar-nav {
+    gap: 0px;
+}
+.d-flex .cart{
+    flex-direction: row;
+}
+.nav-link.active {
+    border-bottom: 0px #FF2020 solid;
+    
+}
+
 }

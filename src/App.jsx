@@ -12,6 +12,14 @@ import SignIn from "./Pages/Sign-in/components/SignIn";
 import Signup from "./Pages/Register/components/Signup";
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
+import UserContextProvider from "./context/User";
+import NotFound from "./Pages/NotFound/NotFound";
+import Profile from "./Pages/Profile/Profile";
+import CategoryProducts from "./Pages/CategoryProducts/CategoryProducts";
+import SendCode from "./Pages/ForgotPassword/SendCode";
+import ProductsDetails from "./Pages/ProductsDetails/ProductsDetails";
+
 
 const router = createBrowserRouter([
   {
@@ -23,7 +31,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/products/category/:id",
+        path: "/products",
         element: <Products />,
       },
       {
@@ -42,6 +50,30 @@ const router = createBrowserRouter([
         path: "/sign-up",
         element: <Signup />,
       },
+      {
+        path:"/categories/:id",
+        element:<CategoryProducts/>
+      },
+      {
+       path:"/products/:id",
+       element:<ProductsDetails/>,
+      },
+      {
+        path:"/Forget-Password",
+        element:<ForgotPassword/>
+      },
+      {
+        path:"/profile",
+        element:<Profile/>
+      },
+      {
+        path:"/sendcode",
+        element:<SendCode/>
+      },
+      {
+        path:'*',
+        element:<NotFound/>
+      },
     ],
   },
 ]);
@@ -49,7 +81,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
+      <UserContextProvider>
       <RouterProvider router={router} />
+      </UserContextProvider>
       <ToastContainer />
     </>
   );

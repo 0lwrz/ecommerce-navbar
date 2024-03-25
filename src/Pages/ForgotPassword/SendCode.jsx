@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Signup.css";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 import axios from "axios";
@@ -8,10 +7,9 @@ import { Flip } from "react-toastify";
 export default function Signup() {
   const navigate = useNavigate();
   const [user, setUser] = useState({
-    userName: "",
     email: "",
     password: "",
-    image: "",
+    code:"",
   });
   const [errors, setErrors] = useState([]);
   const [loader, setLoader] = useState(false);
@@ -22,19 +20,14 @@ export default function Signup() {
       [name]: value,
     });
   };
-  const handelImageChange = (e) => {
-    const { name, files } = e.target;
-    setUser({
-      ...user,
-      [name]: files[0],
-    });
-  };
+
   const validateData = async () => {
     const userSchema = object({
-      userName: string().min(5).max(15).required(),
+
       email: string().required(),
       password: string().min(7).max(20).required(),
-      image: string().required(),
+      code:string().required(),
+
     });
     try {
       await userSchema.validate(user, { abortEarly: false });
@@ -53,25 +46,25 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoader(true);
-    if (await validateData()) {
-      const formData = new FormData();
-      formData.append("userName", user.userName);
-      formData.append("email", user.email);
-      formData.append("password", user.password);
-      formData.append("image", user.image);
+    if (await validateData()) {;
       try {
-        const { data } = await axios.post(
-          `${import.meta.env.VITE_API_URL}/auth/signup`,
-          formData
+        const { data } = await axios.patch(
+          `${import.meta.env.VITE_API_URL}/auth/forgotPassword`,
+          {
+            email:user.email,
+            password:user.password,
+            code:user.code,
+          }
         );
         setUser({
-          userName: "",
+ 
           email: "",
           password: "",
-          image: "",
+          code:"",
+
         });
         if (data.message == "success") {
-          toast.success("success", {
+          toast.success("Your password has changed", {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -82,7 +75,7 @@ export default function Signup() {
             theme: "colored",
             transition: Flip,
           });
-          navigate("/");
+          navigate("/sign-in");
         }
       } catch (error) {
         if (error.response.status === 409) {
@@ -98,6 +91,22 @@ export default function Signup() {
             transition: Flip,
           });
         }
+        else if (error.response.status === 400){
+            toast.error(error.response.data.message, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Flip,
+              });
+        }
+        else{
+            navigate('*');
+        }
       } finally {
         setLoader(false);
       }
@@ -112,27 +121,15 @@ export default function Signup() {
             <div className="register-form-area col">
               <div className="register-form text-center col">
                 <div className="register-heading col">
-                  <span>Sign Up</span>
-                  <p>Create your account to get full access</p>
+                  <p>Please enter the code to verify it and change the password</p>
                 </div>
                 <form onSubmit={handleSubmit}>
                   <div className="input-box col">
                     <div className="single-input-fields">
-                      <label>Full Name</label>
-                      <input
-                        type="text"
-                        placeholder="Enter full name"
-                        value={user.userName}
-                        name="userName"
-                        onChange={handelChange}
-                      />
-                      <div className="error">{errors.userName}</div>
-                    </div>
-                    <div className="single-input-fields">
                       <label>Email Address</label>
                       <input
                         type="email"
-                        placeholder="Enter email address"
+                        placeholder="Enter your email"
                         value={user.email}
                         name="email"
                         onChange={handelChange}
@@ -143,35 +140,33 @@ export default function Signup() {
                       <label>Password</label>
                       <input
                         type="password"
-                        placeholder="Enter Password"
+                        placeholder="Enter new password"
                         value={user.password}
                         name="password"
                         onChange={handelChange}
                       />
                       <div className="error">{errors.password}</div>
                     </div>
-                    <div className="d-flex flex-column">
-                      <label className="text-start lable-image">Image</label>
+                    <div className="single-input-fields">
+                      <label>Code</label>
                       <input
-                        type="file"
-                        name="image"
-                        onChange={handelImageChange}
+                        type="text"
+                        placeholder="Enter the code"
+                        name="code"
+                        onChange={handelChange}
                       />
-                      <div className="error">{errors.image}</div>
+                      <div className="error">{errors.code}</div>
                     </div>
                   </div>
                   <div className="register-footer col">
-                    <p>
-                      Already have an account?
-                      <NavLink to="/sign-in"> Login</NavLink> here
-                    </p>
+                    
                     <button
                       className="submit-btn3"
                       type="submit"
                       disabled={loader ? "disabled" : null}
                     >
                       {!loader ? (
-                        "Sign up"
+                        "Submit"
                       ) : (
                         <div className="spinner-border" role="status">
                           <span className="sr-only"></span>

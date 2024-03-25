@@ -1,17 +1,16 @@
-import React, { useContext, useState } from "react";
-import "./SignIn.css";
+import React, { useState } from "react";
+import "./ForgotPassword.css";
+import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
 import { toast } from "react-toastify";
 import { Flip } from "react-toastify";
-import axios from "axios";
-import { UserContext } from "../../../context/User";
-export default function SignIn() {
+import { Bounce } from "react-toastify";
+
+export default function ForgotPassword() {
   const navigate = useNavigate();
-  const {setUserToken ,} = useContext(UserContext);
   const [user, setUser] = useState({
     email: "",
-    password: "",
   });
   const [errors, setErrors] = useState([]);
   const [loader, setLoader] = useState(false);
@@ -25,7 +24,6 @@ export default function SignIn() {
   const validateData = async () => {
     const userSchema = object({
       email: string().required(),
-      password: string().min(7).max(20).required(),
     });
     try {
       await userSchema.validate(user, { abortEarly: false });
@@ -45,20 +43,18 @@ export default function SignIn() {
     setLoader(true);
     if (await validateData()) {
       try {
-        const { data } = await axios.post(
-          `${import.meta.env.VITE_API_URL}/auth/signin`,
+        const { data } = await axios.patch(
+          `${import.meta.env.VITE_API_URL}/auth/sendcode`,
           {
-            email:user.email,
-            password:user.password,
+            email: user.email,
           }
         );
         setUser({
           email: "",
-          password: "",
         });
-        
+
         if (data.message == "success") {
-          toast.success("success", {
+          toast.info("Please check your email to get the code", {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -67,11 +63,9 @@ export default function SignIn() {
             draggable: true,
             progress: undefined,
             theme: "colored",
-            transition: Flip,
+            transition: Bounce,
           });
-          localStorage.setItem("userToken", data.token);
-          setUserToken(data.token);
-          navigate("/");
+          navigate("/sendcode");
         }
       } catch (error) {
         toast.error(error.response.data.message, {
@@ -99,8 +93,12 @@ export default function SignIn() {
             <div className="login-form-area">
               <div className="login-form">
                 <div className="login-heading">
-                  <span>Login</span>
-                  <p>Enter Login details to get access</p>
+                  <div className="login-heading">
+                    <span>Forget Password</span>
+                    <p>
+                      Please, enter your email so you can retrieve your password
+                    </p>
+                  </div>
                 </div>
                 <form onSubmit={handleSubmit}>
                   <div className="input-box">
@@ -109,40 +107,21 @@ export default function SignIn() {
                       <div className="error">{errors.email}</div>
                       <input
                         type="email"
+                        value={user.email}
                         placeholder="Enter your email"
                         name="email"
-                        value={user.email}
                         onChange={handelChange}
                       />
-                    </div>
-                    <div className="single-input-fields">
-                      <label>Password</label>
-                      <div className="error">{errors.password}</div>
-                      <input
-                        type="password"
-                        placeholder="Enter Password"
-                        name="password"
-                        value={user.password}
-                        onChange={handelChange}
-                      />
-                    </div>
-                    <div className="single-input-fields login-check">
-                      <NavLink to="/Forget-Password" className="f-right">
-                        Forgot Password?
-                      </NavLink>
                     </div>
                   </div>
                   <div className="login-footer">
-                    <p>
-                      Don’t have an account?{" "}
-                      <NavLink to="/sign-up">Sign Up</NavLink> here
-                    </p>
-                    <button
+                  <button
                       className="submit-btn3"
+                      type="submit"
                       disabled={loader ? "disabled" : null}
                     >
                       {!loader ? (
-                        "Login"
+                        "Submit"
                       ) : (
                         <div className="spinner-border" role="status">
                           <span className="sr-only"></span>

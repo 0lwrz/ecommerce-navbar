@@ -10,6 +10,9 @@ import "swiper/css/scrollbar";
 import Slider from "../../../components/Slider/Slider";
 import Hero from "../../../components/Hero/Hero";
 import Categories from "../../Categories/components/Categories";
+import ProductsHome from "../../../components/ProdcutsHome/ProductsHome";
+
+
 
 export default function Home() {
   return (
@@ -17,6 +20,7 @@ export default function Home() {
      <Hero/>
      <Slider/>
      <Categories/>
+     <ProductsHome/>
     </>
   );
 }

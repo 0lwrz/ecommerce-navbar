@@ -44,3 +44,78 @@
     padding: 0 50px;
     font-family: "Jost", sans-serif;
 }
+.btn_1 {
+  background: #292621;
+  font-weight: 500;
+  border: 1px solid #292621;
+  text-transform: uppercase;
+  color: #fff !important;
+  display: inline-block;
+  padding: 15px 47px;
+  line-height: 16px;
+  font-size: 14px;
+}
+.btn_1:hover{
+  background-color:#ff2020;
+  transition:0.5s;
+}
+
+@media screen and (max-width:1369px) {
+  .swiper-button-prev:after, .swiper-button-next:after {
+    display: none;
+  }
+  
+}
+@media screen and (max-width:1218px) {
+  .text-center{
+    font-size: 17px;
+  }
+  
+}
+@media screen and (max-width:1018px) {
+  .centered-2 {
+    transform: translate(-3%, -50%);
+}
+.centered p{
+  font-size: 14px;
+}
+.text-center{
+  font-size: 14px;
+}
+  
+}
+@media screen and (max-width:810px) {
+  .centered p{
+    font-size: 12px;
+  }
+  
+}
+@media screen and (max-width:682px) {
+  
+  .centered p{
+    display: none;
+  }
+  .display{
+    display: none;
+  }
+}
+@media screen and (max-width:483px) {
+  
+  .btn_1{
+    padding: 10px;
+  } 
+  .centered-2 {
+    transform: translate(-50%, -50%);
+}
+}
+@media screen and (max-width:350px) {
+  
+ .text-center{
+  display: none;
+ }
+ .btn_1{
+  padding: 10px;
+ margin-top: 80px;
+ }
+ 
+}
