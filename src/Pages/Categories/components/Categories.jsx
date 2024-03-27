@@ -81,7 +81,7 @@ export default function Categories() {
             }}
           >
             {categories.map((categorie) => (
-              <SwiperSlide>
+              <SwiperSlide key={categorie._id}>
                 
                   <div key={categorie._id}>
                     
@@ -89,7 +89,7 @@ export default function Categories() {
 
                     <Link to={`/categories/${categorie._id}`}>
 
-                    <img
+                    <img 
                       src={categorie.image.secure_url}
                       className="home-img"
                       

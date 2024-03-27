@@ -1,23 +1,79 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./Cart.css";
+import Loader from "../../../components/Loader/Loader";
 
 export default function Cart() {
   const [products, setProducts] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const [actions , setAction] = useState(-1);
   const token = localStorage.getItem("userToken");
   const getCart = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, {
-      headers: {
-        Authorization: `Tariq__${token}`,
-      },
-    });
-    setProducts(data.products);
-
-    console.log(data);
+    try {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/cart`, {
+        headers: {
+          Authorization: `Tariq__${token}`,
+        },
+      });
+      setProducts(data.products);
+      setLoader(flase);
+    } catch (err) {
+      setLoader(false);
+    }
   };
+  const incraseQuantity = async (productId) => {
+ 
+    const { data } = await axios.patch(
+      `${import.meta.env.VITE_API_URL}/cart/incraseQuantity`,
+      { productId },
+      {
+        headers: {
+          Authorization: `Tariq__${token}`,
+        },
+      }
+    );
+    setAction(actions+1);
+  };
+  const decraseQuantity = async (productId) => {
+    const { data } = await axios.patch(
+      `${import.meta.env.VITE_API_URL}/cart/decraseQuantity`,
+      { productId },
+      {
+        headers: {
+          Authorization: `Tariq__${token}`,
+        },
+      }
+    );
+    setAction(actions - 1);
+  };
+  const removeItem = async (productId) => {
+
+    const { data } = await axios.patch(
+      `${import.meta.env.VITE_API_URL}/cart/removeItem`,
+      { productId },
+      {
+        headers: {
+          Authorization: `Tariq__${token}`,
+        },
+      }
+    );
+    setAction(data.products);
+  };
+  const clearAll = async ()  =>{
+    const {data} = await axios.patch(`${import.meta.env.VITE_API_URL}/cart/clear`,{}, {
+      headers:{
+        Authorization: `Tariq__${token}`,
+      }
+    });
+    setAction(data.products);
+    console.log(data);
+  }
   useEffect(() => {
     getCart();
-  }, []);
+  }, [actions]);
+  if (loader) {
+    return <Loader />;
+  }
   return (
     <div className="container px-3 my-5 clearfix">
       <div className="card">
@@ -60,49 +116,62 @@ export default function Cart() {
                 </tr>
               </thead>
               <tbody>
-                {products.map(product=>
-                <tr>
-                <td className="p-4">
-                  <div className="media align-items-center">
-                    <img
-                      src={product.details.mainImage.secure_url}
-                      className="d-block ui-w-40 ui-bordered mr-4"
-                      alt
-                    />
-                    <div className="media-body">
-                      <a href="#" className="d-block text-dark">
-                        {product.details.name}
-                      </a>
-                    </div>
-                  </div>
-                </td>
-                <td className="text-right font-weight-semibold align-middle p-4">
-                  ${product.details.price}
-                </td>
-                <td className="align-middle p-4">
-                  <input
-                    type="text"
-                    className="form-control text-center"
-                    defaultValue={2}
-                  />
-                </td>
-                <td className="text-right font-weight-semibold align-middle p-4">
-                  $115.1
-                </td>
-                <td className="text-center align-middle px-0">
-                  <a
-                    href="#"
-                    className="shop-tooltip close float-none text-danger"
-                    title
-                    data-original-title="Remove"
-                  >
-                    ×
-                  </a>
-                </td>
-              </tr>
-                )
-                  
-                }
+                {products.map((product) => (
+                  <tr>
+                    <td className="p-4">
+                      <div className="media align-items-center">
+                        <img
+                          src={product.details.mainImage.secure_url}
+                          className="d-block ui-w-40 ui-bordered mr-4"
+                          alt
+                        />
+                        <div className="media-body">
+                          <a href="#" className="d-block text-dark">
+                            {product.details.name}
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="text-right font-weight-semibold align-middle p-4">
+                      ${product.details.price}
+                    </td>
+                    <td className="align-middle p-4">
+                      <div className="quantity">
+                        <button
+                          onClick={() => decraseQuantity(product.details._id)}
+                          className="minus bg-danger"
+                          aria-label="Decrease"
+                        >
+                          −
+                        </button>
+                        <div className="input-box-quantity">
+                          {product.quantity}
+                          </div>
+                        <button
+                          onClick={() => incraseQuantity(product.details._id)}
+                          className="plus bg-danger"
+                          aria-label="Increase"
+                        > 
+                        + 
+                        </button>
+                      </div>
+                    </td>
+                    <td className="text-right font-weight-semibold align-middle p-4">
+                      {product.details.price * product.quantity}
+                    </td>
+                    <td className="text-center align-middle px-0">
+                      <button
+                        href="#"
+                        className="plus bg-danger p-2 text-white border border-white"
+                        title
+                        data-original-title="Remove"
+                        onClick={() => removeItem(product.details._id)}
+                      >
+                        ×
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -120,10 +189,11 @@ export default function Cart() {
             <button
               type="button"
               className="btn btn-lg btn-default md-btn-flat mt-2 mr-3"
+              onClick={()=> clearAll()}
             >
-              Back to shopping
+              Clear All
             </button>
-            <button type="button" className="btn btn-lg btn-primary mt-2">
+            <button type="button" className="btn btn-lg btn-danger mt-2">
               Checkout
             </button>
           </div>

@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 export const UserContext = createContext();
+import axios from "axios";
 
 const UserContextProvider = ({children}) =>{
  const [userToken , setUserToken] = useState(localStorage.getItem('userToken'));
@@ -18,6 +19,7 @@ const UserContextProvider = ({children}) =>{
       setAuth(decoded);
    }
  }
+ 
 
  useEffect(()=>{
   getUserData();
@@ -25,6 +27,7 @@ const UserContextProvider = ({children}) =>{
  useEffect( ()=>{
   getAllData();
  },[userToken] )
+
 
  return <UserContext.Provider value={{setUserToken , userName ,setUserName ,auth ,setAuth}}>
     {children}

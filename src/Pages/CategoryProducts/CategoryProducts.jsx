@@ -2,19 +2,31 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Products from './../Products/components/Products';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import Loader from '../../components/Loader/Loader';
 
 export default function CategoryProducts() {
     const {id} = useParams('id');
     const [products , setProducts] = useState([]);
+    const [loader , setLoader] = useState(true);
     const getProducts = async () =>{
+      try{
         const { data } = await axios.get(
             `${import.meta.env.VITE_API_URL}/products/category/${id}`
           );
           setProducts(data.products);
+          setLoader(false);
+        }catch(err){
+          setLoader(false);
+        }
     };
     useEffect(()=>{
         getProducts();
     },[])
+    
+    if(loader){
+      return <Loader/>
+    }
 
   return (
     <section style={{ backgroundColor: "#eee" }}>
@@ -24,7 +36,7 @@ export default function CategoryProducts() {
           </h4>
           <div className="row">
             {products.map((e) => (
-              <div className="col-lg-4 col-md-12 mb-4">
+              <div className="col-lg-4 col-md-12 mb-4" key={e._id}>
                 <div className="card">
                   <div
                     className="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
@@ -34,7 +46,7 @@ export default function CategoryProducts() {
                       src={e.mainImage.secure_url}
                       className="products-img"
                     />
-                    <a href="#!">
+                    <Link to ={`/products/${e._id}`}>
                       <div className="mask">
                         <div className="d-flex justify-content-start align-items-end h-100">
                           <h5>
@@ -52,13 +64,13 @@ export default function CategoryProducts() {
                           }}
                         />
                       </div>
-                    </a>
+                    </Link>
                   </div>
                   <div className="card-body">
-                    <a href className="text-reset">
+                    <a href="#" className="text-reset">
                       <h5 className="card-title mb-3">{e.name}</h5>
                     </a>
-                    <a href className="text-reset">
+                    <a href="#" className="text-reset">
                       <p>Discount: {e.discount}</p>
                     </a>
                     <h6 className="mb-3">

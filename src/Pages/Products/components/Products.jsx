@@ -59,7 +59,7 @@ export default function Products() {
                       src={e.mainImage.secure_url}
                       className="products-img "
                     />
-                    <a href="#">
+                    <div>
                       <div className="mask">
                         <div className="d-flex justify-content-start align-items-end h-100">
                           <h5>
@@ -80,7 +80,7 @@ export default function Products() {
                           }}
                         />
                       </div>
-                    </a>
+                    </div>
                   </div>
                   <div className="card-body">
                     <a href ='#' className="text-reset">
